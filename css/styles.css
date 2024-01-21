@@ -1,0 +1,1266 @@
+/* COMIENZO CSS */
+
+/* FUENTES DE GOOGLE FONTS------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+/* FIN FUENTES DE GOOGLE FONTS------------------- */
+
+html{ /* el scroll de la web es smooth */
+    scroll-behavior: smooth
+}
+/* VARIABLES------------------- */
+
+:root{
+    --color-primario: rgb(18, 12, 39);
+    --color-secundario: #0C081A;
+    --color-terciario: #666399;
+    --color-letra-1: #a8a2fd;
+    --color-letra-2: #e0deff;
+}
+
+/* FIN VARIABLES------------------- */
+
+/* RESET-------------------------------- */
+* {
+    box-sizing: border-box;
+    }
+    
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section {
+    display: block;
+    }
+    
+    body {
+    line-height: 1;
+    font-family: 'Rubik', sans-serif;
+    
+    line-height: 1.5;
+    }
+    
+    ol, ul {
+    list-style: none;
+    }
+    
+    blockquote, q {
+    quotes: none;
+    }
+    
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+    content: '';
+    content: none;
+    }
+    
+    table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    }
+    
+    a {
+    color:inherit;
+    text-decoration: none;
+    }
+    
+    img {
+    width: 100%;
+    display: inline-block;
+    }
+/* FIN RESET--------------------- */
+
+body{
+    overflow: auto;
+}
+
+body.is-closed{
+    overflow: hidden;
+}
+
+/* HEADER---------------------*/
+header{
+    position: relative;
+}
+
+.container__barra-menu{  /* el contenedor del menu es fijo por lo tanto al hacer scroll se mantiene visible */
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-primario);
+    color: var(--color-letra-1);
+    font-family: 'Ubuntu', sans-serif;
+    padding: .7rem 1.5rem;
+    z-index: 100;
+}
+
+.container__barra-menu .barra-menu__logo{
+    font-size: 40px;
+    font-weight: 700;
+    z-index: 100;
+}
+
+.barra-menu__lista{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 100;
+}
+
+.barra-menu__lista a{
+    transition: .4s;
+}
+
+.barra-menu__lista a:hover{
+    color: #d9d7ff;
+}
+
+@media (max-width:800px){ /* Oculto el menu de secciones horizontal para dar paso al botón de hamburguesa (menu vertical desplegable) */
+    .barra-menu__lista{
+        display: none;
+    }
+}
+
+.barra-menu__hamburger{
+    position: relative;
+    display: block;
+    width: 35px ;
+    cursor: pointer;
+
+    appearance: none;
+    background: none;
+    outline: none;
+    border: none;
+    z-index: 100;
+}
+
+.barra-menu__hamburger--bar, .barra-menu__hamburger::after, .barra-menu__hamburger::before{ /* modifico los divs para crear el icono de la hamburguesa*/
+    content: "";
+    display: block;
+    width: 100%;
+    height: 5px;
+    background-color: var(--color-letra-1);
+    margin: 6px 0px;
+    transition: .4s;
+
+    
+}
+
+/* Cuando se pulsa en el botón de hamburguesa, el primer y tercer div rota en direcciones opuestas y al segundo le reduzco la opacidad para que no se vea*/
+.barra-menu__hamburger.is-active::before{
+    transform: rotate(-45deg) translate(-8px, 6px);
+}
+
+.barra-menu__hamburger.is-active::after{
+    transform: rotate(45deg) translate(-9px, -8px);
+}
+
+.barra-menu__hamburger.is-active .barra-menu__hamburger--bar{
+    opacity: 0;
+}
+
+.container__mobile-menu{ /* Posicion fija del menu mobile para que al hacer scroll se mantenga */
+    position: fixed;
+    top:2;
+    left: 100%;
+    width: 100%;
+    min-height: 100vh;
+    display: block;
+    z-index: 98;
+    background-color: #220f41;
+    padding-top: 120px;
+    transition:.4s ;
+}
+
+.container__mobile-menu.is-active{ /* Para activar y desactivar el desplegable quitando o añadiendo la clase .is-active */
+    left: 0;
+}
+
+.container__mobile-menu a{
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto 16px;
+    text-align: center;
+    padding: 12px 16px;
+    background-color: #4e3b75;
+    color: white;
+    text-decoration: none;
+
+    border-radius: 10px;
+}
+
+@media (min-width:800px){ /* El boton de hamburguesa solo se muestra cuando el width de la pantalla es inferior a 800px.*/
+    .barra-menu__hamburger{
+        display: none;
+    }
+
+    .container__mobile-menu{ /* El deplegable con menu vertical solo se muestra cuando el width de la pantalla es inferior a 800px.*/
+        display: none;
+    }
+}
+
+
+/* FIN HEADER------------------------- */
+
+/* COMIENZO DEL SEGUNDO HEADER (ACTIVITIES)------------------------- */
+
+.container__nav { /* el contenedor del menu es fijo por lo tanto al hacer scroll se mantiene visible */
+
+    position: fixed;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .7rem 4rem;
+    
+    background-color: var(--color-primario);
+    color: var(--color-letra-1);
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.container__nav img {
+    width: 45px;
+}
+
+.container__nav .middle-logo {
+    font-size: 40px;
+    font-weight: 700;
+    z-index: 100;
+}
+
+.container__nav p{
+    color: transparent;
+}
+
+@media (max-width:600px){
+    .container__nav{
+        padding: .7rem 1.5rem;
+    }
+}
+
+/* FIN DEL SEGUNDO HEADER (ACTIVITIES)------------------------- */
+
+/* CONTENEDOR BANNER------------------------- */
+
+.banner{
+    position: relative;
+}
+
+.container__banner{
+    background-image: url(/assets/img-vr-background.webp);
+    background-position: center;
+}
+/* CONTENIDO*/
+.container__banner--content{
+
+    min-height: 700px;
+    max-width: 1350px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+}
+
+.container__banner--titulo{
+    max-width: 700px;
+    font-family: 'Rubik', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: start;
+}
+
+.container__banner--titulo h1{
+    font-size: 45px;
+    font-weight: 700;
+    line-height: 66px;
+    color: var(--color-letra-1);
+}
+/* span "metaverso" */
+.container__banner--titulo h1 span{
+    font-size: 90px;
+    color: var(--color-letra-2);
+}
+
+.container__banner--titulo h3{
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-terciario);
+}
+
+.container__banner--titulo a{
+    margin-top: -2rem;
+    font-size: 15px;
+    font-weight: 700;
+
+    color: var(--color-letra-2);
+    background-color: var(--color-terciario);
+    padding: .7rem 1.5rem;
+    border-radius: 10px;
+
+    transition: .3s;
+}
+
+.container__banner--titulo a:hover{
+    padding: .7rem 1.8rem;
+    background-color: var(--color-letra-1);
+}
+
+/* IMAGEN */
+.container__banner--img img{
+    display: none;
+}
+
+.container__banner::before{
+    content: "";
+    clip-path: polygon(0 100%,100% 40%,100% 100%,0 100%);
+    background-color: var(--color-primario);
+    height: 250px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+/* MEDIA para el contenedor de banner */
+
+@media (max-width:1500px){
+    .container__banner--titulo{
+        padding: 2rem;
+    }
+}
+
+@media (max-width:1100px){ 
+    .container__banner{
+        background-image: url(); /* dejo el campo vacío para eliminar la imagen de fondo */
+        background-color: var(--color-secundario);
+        padding: 3rem 0rem;
+    }
+    .container__banner--content{
+        flex-flow: column;
+        padding: 2rem 0rem;
+
+    }
+    .container__banner--titulo{
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+    }
+    .container__banner--img img{ /* modifico la imagen para favorecer el responsive */
+        display: block;
+        object-fit:initial;
+    }
+    .container__banner--titulo h1 span{
+        font-size: 60px;
+    }
+  
+    .container__banner--titulo a{
+        margin-top: 0;
+    }
+}
+
+/* FIN CONTENEDOR BANNER------------------------- */
+
+/* COMIENZO WHY/CHOOSE NETWORKING IN METAVERSE------------*/
+
+.why{
+    background-color: var(--color-primario);
+    padding: 5rem 0rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+
+    min-height: 650px;
+}
+
+.container__why{
+    max-width: 1500px;
+    margin: auto;
+
+    display: flex;
+    flex-flow: row wrap;
+    gap: 4rem;
+}
+
+/* cada una de las cajas */
+
+.container__why--box{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    align-items: center;
+    text-align: center;
+
+    flex-grow: 1;
+    flex-basis: 0;
+
+    background-color: var(--color-terciario);
+    padding: 2rem;
+    min-width: 250px;
+    border-radius: 10px;
+    color: var(--color-letra-2);
+}
+
+/* div contenedor de h2 + svg */
+
+.container__why--box .why--box--title{
+    display: flex;
+    flex-flow: row;
+    gap: .5rem;
+
+    align-items: center;
+
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.container__why--box p{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+/* texto choose the metaverse for networking*/
+.why h2{
+    font-size: 60px;
+    font-weight: 700;
+    color: #d7d4fd;
+    text-align: center;
+}
+
+/* boton de more info about benefits*/
+.why a{
+
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    font-size: 15px;
+    font-weight: 700;
+
+    color: var(--color-terciario);
+    background-color: #b3b0d8;
+    padding: .7rem 1.5rem;
+    border-radius: 10px;
+
+    transition: .3s;
+}
+
+.why a svg{
+    transition: .3s;
+}
+
+
+.why a:hover{
+
+    background-color: var(--color-letra-1);
+}
+
+.why a:hover svg{ /* animo el btn haciendo que el svg se desplace un poco hacia la derecha. */
+    transform: translateX(4px);
+}
+
+/* MEDIA para favorecer el responsive del contenedor de why choose networking in metaverse */
+
+@media (max-width:1540px){
+    .container__why{
+        padding: 0rem 2rem;
+    }
+}
+
+@media (max-width:958px){
+    .why h2{
+        font-size: 40px;
+    }
+    .why{
+        gap: 2rem;
+    }
+}
+
+
+/* FIN WHY NETWORKING IN METAVERSE---------*/
+
+/* COMIENZO NEXT EVENTS-----*/
+
+.events{
+    background-image: url(/assets/evento-vr-2.webp);
+    background-position: center;
+    min-height: 700px;
+
+    display: flex;
+    justify-content: center;
+    
+
+    padding: 5rem 0rem;
+}
+
+.container__events{
+    background-color: rgba(13, 9, 29, 0.9);
+    border-radius: 20px;
+
+    padding: 3rem 5rem;
+
+    min-height: 60px;
+    max-width: 1200px;
+
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* media para que no se salga de pagina el .container__events en la version mobile */
+@media (max-width:626px){
+    .container__events{
+        padding: 3rem 1rem;
+    } 
+}
+
+/* titulo texto our events */
+.container__events h2{
+    font-size: 40px;
+    max-width: 500px;
+    font-weight: 700;
+    color: var(--color-letra-2);
+    text-align: center;
+}
+
+
+/* contenedor de ambas cards */
+.container__events--container{
+    display: flex;
+    flex-flow: row wrap;
+    gap: 3rem;
+
+    min-height: 500px;
+
+    position: relative;
+}
+
+/* contenedor de cada una de las cards */
+.container__events--container--card{
+    background-color: rgb(102, 99, 153, .8);
+    border-radius: 20px;
+
+    flex-grow: 1;
+    flex-basis: 0;
+
+    display: flex;
+    flex-flow: column wrap;
+
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.container__events--container--card:hover{ /* aumentar tamaño de cards en eje z al pasar el raton por encima */
+    transform: scale(1.01);
+    box-shadow: 0 0 10px rgb(102, 99, 153, .7);
+}
+
+.container--card--imgicon, .container--card--content{
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+/* contenedor de la imagen + los iconos */
+.container--card--imgicon{
+    background-position: center;
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    min-height: 200px;
+}
+/* imagen evento 1 */
+.container--card--imgicon.img-apple{
+    background-image: url(/assets/apple-vr.webp);
+    background-position:center ;
+    background-size: cover;
+}
+/* imagen evento 2 */
+.container--card--imgicon.img-2024{
+    background-image: url(/assets/vr-expectations.webp);
+    background-position:top;
+    background-size: cover;
+}
+
+
+/* contenedor solo de los iconos */
+.container--card--imgicon-icon{
+    display: none;
+    flex-direction: row;
+    gap: 1rem;
+
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    bottom: 0rem;
+    right: 0rem;
+
+    padding: 1rem;  
+}
+
+/* divs iconos y su fondo */
+.icon-heart a{
+    background-color: lightgray;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    padding: .8rem;
+    display: flex;
+    margin: auto;
+
+    transition: .3s;
+}
+
+/* hover para que aparezcan los iconos */
+.container__events--container--card:hover .container--card--imgicon-icon{
+    display: flex;
+}
+
+.icon-heart a:hover{ /* hover para los botones de info*/
+    border: var(--color-terciario) 2px solid;
+}
+
+
+/* contenido de la card */
+
+.container--card--content{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    padding: 1rem 2rem;
+    color: var(--color-letra-2);
+}
+
+.container--card--content h3{
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.container--card--content h4{
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.container--card--content p{
+    font-weight: 200;
+    font-size: 18px;
+}
+
+/* boton more events */
+.container__events .more__events--btn{
+
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    font-size: 15px;
+    font-weight: 700;
+
+    color: var(--color-terciario);
+    background-color: #b3b0d8;
+    padding: .7rem 1.5rem;
+    border-radius: 10px;
+
+    transition: .3s;
+}
+
+.container__events .more__events--btn svg{
+    transition: .3s;
+}
+
+.container__events .more__events--btn:hover{
+
+    background-color: var(--color-letra-1);
+}
+
+.container__events .more__events--btn:hover svg{
+    transform: translateX(5px);
+}
+
+/* FIN NEXT EVENTS---------------*/
+
+
+/* COMIENZO INFO EVENTS (ARTICULOS DE CADA EVENTO)---------------*/
+
+.container__infoevents{
+    background-color: #150f2e;
+    padding: 4rem 0rem;
+}
+
+.container__infoevents--more{
+    background-color: #150f2e;
+    color: var(--color-letra-2);
+    max-width: 1100px;
+    margin: auto;
+    padding: 2rem 0rem;
+
+    display: flex;
+    flex-flow: column wrap;
+    align-items: start;
+    gap: 3rem;
+
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.container__infoevents--more h1{
+    font-size: 60px;
+    font-weight: 700;
+    padding-top: 2rem;
+}
+
+.container__infoevents--more h2{
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.container__infoevents--imagenes{ /* contenedor de las imagenes de los ponentes */
+    display: flex;
+    flex-flow: row wrap;
+    gap: 2rem;
+}
+
+.infoevents__imagenes--img{ /* contenedor de las imagenes de los ponentes + texto del nombre */
+    display: flex;
+    flex-flow: column wrap;
+    gap: .5rem;
+}
+
+.container__infoevents--imagenes .infoevents__imagenes--img{
+    flex-grow: 1;
+    flex-basis: 0;
+
+    min-width: 250px;
+}
+
+.container__infoevents--more a{
+    background-color: #4e3b75;
+    padding: 1rem 2rem;
+    border-radius: 50px;  
+    transition: .3s;
+}
+
+.container__infoevents--more a:hover{
+    padding: 1rem 2.5rem;
+}
+
+/* medias para el responsive */
+
+@media(min-width:600px){
+    .container__infoevents--more{
+        padding-top: 5rem;
+    }
+}
+
+@media(max-width:1150px){
+    .container__infoevents--more{
+        padding: 2rem 1rem;
+    }
+    .container__infoevents--more h1{
+        font-size: 50px;
+    }
+    .container__infoevents--more h2{
+        font-size: 40px;
+    }
+}
+@media(max-width:600px){
+    .container__infoevents--more h1{
+        font-size: 40px;
+    }
+}
+
+/* FIN INFO EVENTS (ARTICULOS DE CADA EVENTO)---------------*/
+
+
+
+/* COMIENZO ACTIVITIES-----------*/
+
+.activities{
+    background-color:var(--color-primario);
+    padding: 4rem 0rem;
+}
+
+.activities h2{
+    font-size: 60px;
+    font-weight: 700;
+    color: var(--color-letra-2);
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    padding-top: 5rem;
+}
+
+@media (max-width:600px){
+    .activities h2{
+        font-size:44px ;
+    } 
+}
+
+/* contenedor del grid */
+.container__activities{
+    max-width: 1260px;
+    margin: auto;
+    margin-top: 4rem;
+
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(20rem,1fr));
+    grid-auto-rows: 25rem;
+
+    padding: 0rem;    
+}
+
+@media (max-width:600px){
+    .container__activities{
+        padding: 0rem .5rem ;
+    } 
+}
+
+/* boxes del grid */
+.container__activities--box{
+    background-color: #d7d4fd;
+    display: flex;
+    flex-flow: column;
+    position: relative;
+
+    border-radius: 10px;
+    transition: .3s;
+
+    justify-content: end;
+    align-items: center;
+    padding: 2rem;
+    padding-bottom: 6rem;
+
+    transition: .3s;
+}
+
+.container__activities--box:hover{ /* aumentar tamaño de cards en eje z */
+    transform: scale(1.01);
+    box-shadow: 0 0 10px var(--color-letra-1);
+}
+
+/* texto titulo de cada actividad */
+.container__activities--box h3{
+    font-size: 30px;
+    font-weight: 1000;
+    font-family: 'Ubuntu', sans-serif;
+    color: var(--color-letra-2);
+    text-align: center;
+
+    transition: 1s;
+}
+/* contenedor del botón del plus */
+.container__activities--box .plus-btn{
+    appearance: none;
+    background: var(--color-letra-1) ;
+    outline: none;
+    border: none;
+    position:absolute ;
+    bottom: 1rem;
+    right: 1rem;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
+    border-radius: 50px;
+    transition: .3s;
+}
+
+.container__activities--box .plus-btn.is-open{  /* de esta manera al hacer clic en el btn, el svg(+) rota y vuelve a rotar a su estado original si pulsas de nuevo. */
+    transform: rotate(45deg);
+}
+
+/* botón redirige página de cada actividad */
+.container__activities--box .otro-btn{
+    background: var(--color-letra-1);
+    position:absolute ;
+    bottom: 1rem;
+    left: 1rem;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: .5rem 3rem;
+    border-radius: 50px;
+    transition: .3s;
+}
+
+/* Background de cada una de las boxes */
+.container__activities--box.box-a{
+    background-image: url(/assets/tns2-img.webp);
+    background-position: bottom;
+    background-size: cover;
+}
+
+.container__activities--box.box-b{
+    background-image: url(/assets/vmp-img.webp);
+    background-position:right;
+    background-size: cover;
+}
+
+.container__activities--box.box-c{
+    background-image: url(/assets/pdc-img.webp);
+    background-position: right;
+    background-size: cover;
+}
+
+.container__activities--box.box-d{
+    background-image: url(/assets/tbe-img.webp);
+    background-position: top;
+    background-size: cover;
+}
+
+.container__activities--box.box-e{
+    background-image: url(/assets/vse-img.webp);
+    background-position:35% 65%;
+    background-size: cover;
+}
+
+.container__activities--box.box-f{
+    background-image: url(/assets/cer-img.webp);
+    background-position: top;
+    background-size: cover;
+}
+
+
+/* POPUP */
+
+.container__activities--box .box__back{
+    background-color:rgba(193, 170, 240, 0.9);
+    border-radius: 10px;
+    padding: 1rem 2rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    z-index:1;
+}
+
+.container__activities--box .box__back p{
+    font-size: 15px;
+    font-weight: 1000;
+    font-family: 'Ubuntu', sans-serif;
+    color: var(--color-letra-2);
+    text-align: center;
+
+    padding-top: 1rem;
+}
+
+.container__activities--box .box__back a{
+    text-align: center;
+}
+
+/* PARA QUE EL POPUP APAREZCA Y DESAPAREZCA */
+
+/* Estilo inicial para el reverso */
+.container__activities--box .box__back{
+    display: none;
+}
+
+/* Para mostrar el reverso al activarse la clase is-open */
+.container__activities--box.is-open .box__front {
+    display: none;
+}
+
+.container__activities--box.is-open .box__back {
+    display: block;
+}
+
+/* FIN ACTIVITIES--------------*/
+
+
+
+/* COMIENZO CONTENEDOR DEL FORMULARIO--------------*/
+
+.formulario{
+    background-color: var(--color-primario);
+    padding: 5rem 0rem;
+    min-height: 1000px;
+}
+
+.container__formulario{
+    padding-top: 5rem ;
+    max-width: 1100px;
+    margin: auto;
+
+    display: flex;
+    flex-flow: row wrap;
+    gap: 2rem;
+}
+
+.container__formulario--form, .container__formulario--img{
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.container__formulario--form{
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    padding: 0rem 3rem;
+    min-width: 350px;
+}
+
+.container__formulario--form h2{ /* titulo formulario */
+    font-size: 50px;
+    font-weight: 700;
+    font-family: 'Ubuntu', sans-serif;
+    color: var(--color-letra-2);
+}
+
+.container__formulario--img{
+    min-width: 350px;
+}
+
+@media (max-width:600px){
+    .container__formulario--img{
+        padding: 0rem .5rem ;
+    } 
+}
+
+.container__formulario--img img{
+    border-radius: 15px;
+}
+
+
+
+/* CONTENEDOR FORM */
+.form__container{
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form__container--inputs{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.inputs--text{
+    background-color:#f0efff;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: .7rem;
+    border: solid 2px var(--color-primario);
+    border-radius: 5px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.btn-submit{
+    background-color: var(--color-letra-1);
+    color: #F1F1F1;
+    border-radius: 5px;
+    padding: 1rem;
+    
+    font-family: 'Ubuntu', sans-serif;
+
+    appearance: none;
+    outline: none;
+    border: none;
+    transition: .3s;
+}
+
+
+/* COMIENZO FOOTER */
+
+footer{
+    background-color: var(--color-primario);
+}
+
+.container__footer--arriba a, .container__footer--arriba p{
+    transition: .3s;
+    color: var(--color-letra-2);
+}
+
+.container__footer{
+    display: flex;
+    flex-flow: column wrap;
+}
+
+/* contenedor contacto, secciones y redes */
+.container__footer--arriba{
+    background-color: var(--color-secundario);
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: 4rem 0rem;
+}
+
+.arriba__contacto, .arriba__categorias, .arriba__redes{
+    display: flex;
+    flex-flow: column wrap;
+    gap: .7rem;
+}
+
+.arriba__contacto .contacto--logo{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.arriba__contacto .contacto--contact{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.arriba__categorias a{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.arriba__redes{
+    font-size: 16px;
+    font-weight: 500;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.arriba__redes--redes{
+    display: flex;
+    gap: 1.5rem;
+}
+
+.container__footer--arriba a:hover{
+    color: #ffffff;
+}
+
+
+/* contenedor políticas, cookies */
+.container__footer--abajo{
+    background-color: var(--color-terciario);
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 5rem;
+
+    padding: 1rem 0rem;
+    color: var(--color-secundario);
+    font-weight: 200;
+    font-size: 14px;
+}
+
+/* Medias para responsive del footer  */
+@media (max-width:717px){
+    .container__footer{
+        padding: 1rem 0rem ;
+    }
+}
+
+@media (max-width:660px){
+    .container__footer--arriba{
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+        
+    }
+}
+
+/* FIN FOOTER */
+
+
+/* COMIENZO ESTRUCTURA DE LOS ARTÍCULOS DE CADA ACTIVIDAD */
+.container__seemore{
+    background-color: #150f2e;
+    padding: 4rem 0rem;
+}
+
+.container__seemore--more{
+
+    background-color: #150f2e;
+    color: var(--color-letra-2);
+    max-width: 1100px;
+    margin: auto;
+    padding: 2rem 0rem;
+
+    display: flex;
+    flex-flow: column wrap;
+    gap: 2rem;
+
+    font-family: 'Ubuntu', sans-serif;
+
+}
+
+.container__seemore--more h1{
+    font-size: 60px;
+    font-weight: 700;
+}
+
+.container__seemore--more h2{
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.container__seemore--imagenes{
+    display: flex;
+    flex-flow: row wrap;
+    gap: 2rem;
+}
+
+.container__seemore--imagenes .seemore__imagenes-img{
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+@media(min-width:600px){
+    .container__seemore{
+        padding-top: 5rem;
+    }
+}
+
+@media(max-width:1150px){
+    .container__seemore--more{
+        padding: 2rem 1rem;
+    }
+    .container__seemore--more h1{
+        font-size: 50px;
+    }
+    .container__seemore--more h2{
+        font-size: 40px;
+    }
+}
+@media(max-width:600px){
+    .container__seemore--more h1{
+        font-size: 40px;
+    }
+}
+
+/* FIN THEMATIC NETWORKING SESSIONS */
+
+/* FIN CSS :) */
